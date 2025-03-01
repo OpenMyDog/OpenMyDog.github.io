@@ -1,0 +1,32 @@
+<style>
+.heart {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  margin: 50px;
+}
+
+.heart::before,
+.heart::after {
+  content: '';
+  position: absolute;
+  width: 50px;   /* 半圆直径 */
+  height: 80px;  /* 控制心形高度 */
+  background: #ff3f3f;
+  border-radius: 50px 50px 0 0; /* 左上和右上圆角 */
+}
+
+.heart::before {
+  left: 50px;
+  transform: rotate(-45deg);      /* 左半部分旋转 */
+  transform-origin: 0 100%;       /* 旋转基点：左下角 */
+}
+
+.heart::after {
+  left: 0;
+  transform: rotate(45deg);       /* 右半部分旋转 */
+  transform-origin: 100% 100%;    /* 旋转基点：右下角 */
+}
+</style>
+
+<div class="heart"></div>
