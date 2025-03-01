@@ -1,32 +1,57 @@
-<style>
-.heart {
-  width: 100px;
-  height: 100px;
-  position: relative;
-  margin: 50px;
-}
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* 核心样式：基于视口宽度的动态缩放 */
+        .heart {
+            --size: 20vw;  /* 基础尺寸（屏幕宽度的20%） */
+            position: relative;
+            width: var(--size);
+            height: var(--size);
+            animation: beat 1.5s infinite;
+            margin: 10vh auto; /* 垂直居中 */
+        }
 
-.heart::before,
-.heart::after {
-  content: '';
-  position: absolute;
-  width: 50px;   /* 半圆直径 */
-  height: 80px;  /* 控制心形高度 */
-  background: #ff3f3f;
-  border-radius: 50px 50px 0 0; /* 左上和右上圆角 */
-}
+        /* 心形左右半圆（使用百分比自适应） */
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: calc(var(--size) * 0.5);  /* 50%父容器宽度 */
+            height: calc(var(--size) * 0.8); /* 80%父容器高度 */
+            background: #ff3f3f;
+            border-radius: calc(var(--size) * 0.5) calc(var(--size) * 0.5) 0 0;
+        }
 
-.heart::before {
-  left: 50px;
-  transform: rotate(-45deg);      /* 左半部分旋转 */
-  transform-origin: 0 100%;       /* 旋转基点：左下角 */
-}
+        /* 左半部分旋转定位 */
+        .heart::before {
+            left: calc(var(--size) * 0.5); /* 居中定位 */
+            transform: rotate(-45deg);
+            transform-origin: 0 100%;
+        }
 
-.heart::after {
-  left: 0;
-  transform: rotate(45deg);       /* 右半部分旋转 */
-  transform-origin: 100% 100%;    /* 旋转基点：右下角 */
-}
-</style>
+        /* 右半部分旋转定位 */
+        .heart::after {
+            right: calc(var(--size) * 0.5); /* 居中定位 */
+            transform: rotate(45deg);
+            transform-origin: 100% 100%;
+        }
 
-<div class="heart"></div>
+        /* 心跳动画 */
+        @keyframes beat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        /* 手机端限制最大尺寸（可选） */
+        @media (max-width: 768px) {
+            .heart {
+                --size: 40vw;  /* 手机端放大显示 */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="heart"></div>
+</body>
+</html>
